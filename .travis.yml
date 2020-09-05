@@ -11,8 +11,9 @@ after_success:
     - mkdir -p build/usr/share/man/
     - mkdir -p build/usr/share/fonts/
     - mkdir -p build/usr/share/oricium/
+    - mkdir -p build/bin/
     - cp Makefile build/usr/src/oricium/
-    - cp RELEASE/orix/usr/bin/oricium build/bin
+    - cp RELEASE/orix/usr/bin/oricium build/bin/
     - cd build && tar -c * > ../oricium.tar && cd ..
     - gzip oricium.tar
     - mv oricium.tar.gz oricium.tgz

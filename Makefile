@@ -5,7 +5,7 @@ CC=cl65
 PROGRAM=oricium
 
 HOMEDIR=/home/travis/bin/
-HOMEDIR_PROGRAM=/home/travis/build/oric-software/$(PROGRAM)
+HOMEDIR_PROGRAM=/home/travis/build/orix-software/$(PROGRAM)
 
 all : oricium
 .PHONY : all
@@ -13,36 +13,13 @@ all : oricium
 CFLAGS=-ttelestrat
 
 
-ifdef TRAVIS_BRANCH
-ifeq ($(TRAVIS_BRANCH), master)
-RELEASE:=$(shell cat VERSION)
-else
-RELEASE=alpha
-endif
-endif
 
-
-
-SOURCE=main.c
-ASFLAGS=-v -R -cc -DTARGET_FILEFORMAT_O65
+#SOURCE=main.c
+#ASFLAGS=-v -R -cc -DTARGET_FILEFORMAT_O65
 
 $(PROGRAM): README.md
 	cp README.md toto
 
 
 test:
-	mkdir -p build/usr/bin/
-	cp RELEASE/orix/usr/bin/$(PROGRAM)  build/usr/bin/
-	mkdir -p build/usr/share/man
-	mkdir -p build/usr/share/ipkg  
-	mkdir -p build/usr/share/doc/$(PROGRAM)
-	cp $(PROGRAM) build/usr/bin/$(PROGRAM)
-	cd $(HOMEDIR) && cat $(HOMEDIR_PROGRAM)/src/man/$(PROGRAM).md | md2hlp.py > $(HOMEDIR_PROGRAM)/build/usr/share/man/$(PROGRAM).hlp      
-	cp src/ipkg/$(PROGRAM).csv build/usr/share/ipkg
-	cp README.md build/usr/share/doc/$(PROGRAM)
-	cd build && tar -c * > ../$(PROGRAM).tar && cd ..
-	filepack  $(PROGRAM).tar $(PROGRAM).pkg
-	gzip $(PROGRAM).tar
-	mv $(PROGRAM).tar.gz $(PROGRAM).tgz
-	php buildTestAndRelease/publish/publish2repo.php $(PROGRAM).tgz ${hash} 6502 tgz $(RELEASE)
-	echo nothing
+	mkdir -p build/bin/
